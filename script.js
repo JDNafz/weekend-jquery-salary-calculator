@@ -3,9 +3,8 @@ $(document).ready(onReady);
 function onReady(){
     
     $("#submit-btn").on('click',submitUser);
-    
+    $("#resultsTable").on('click','.deleteTarget',removeUser);
     autoAdd();
-    
     
 }//end onReady
 
@@ -13,7 +12,8 @@ function onReady(){
 //list of employees
 let employees = []
 
-function submitUser(){
+function submitUser(event){
+    
     let firstNameInput =  $('#inFirstName').val(); 
     let lastNameInput = $('#inLastName').val();
     let idInput = $('#inUserID').val();
@@ -33,48 +33,45 @@ function submitUser(){
     //total List of employees
     employees.push(employee);
     addToTable(employee);
-    updateTotal();
     //add data to table
 }// end submitUser
 
-function addToTable(employee){
-    let col1 = "<tr><td>"+employee.firstName+"</td>"
-    let col2 = "<td>"+employee.lastName+"</td>"
-    let col3 = "<td>"+employee.id+"</td>"
-    let col4 = "<td>"+employee.title+"</td>"
-    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }
-    //   variable.toLocaleString("en-US",formatting_options) ;
-    let salaryFormatted = employee.salary.toLocaleString("en-US",formatting_options);
-    let col5 = "<td>"+salaryFormatted+"</td>"
-    let col6 = "<td><input id='delete"+employee.id+"' type='submit' value='delete'></td></tr>"
-    let employeeRow = col1 + col2 + col3 + col4 + col5 + col6;
-    console.log("EmployeeRow:",employeeRow)
-    $('#resultsTable').append(employeeRow)
-    // $('#resultsTable').append("<div class='blue'></div>")
-        
+function addToTable(employee){    
+    let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>"${employee.lastName}"</td><td>${employee.id}"</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
+    
+    // console.log("EmployeeRow:",row)
+    $('#resultsTable').append(row)
+    
+    updateMonthlySalary(employee);
+
 }//end addToTable
 
 //calculate Total Monthly
-function updateTotal(){                     //TODO:
-    //run through employees
-    //sum each salary
-    //divide by 12 to get monthly
+let runningTotal = 0
+function updateMonthlySalary(employee){                     
+
+    let employeeMonthly = employee.salary / 12
+    runningTotal += employeeMonthly
+    let output = formatMoney(runningTotal);
+    $('#totalAmount').text(output); 
+    
+    
     //update #totalAmount span
 }//end updateTotal
 
-//TODO: Delete btn functionality
-//Base: remove from DOM -- THATS IT
-// Create a delete button that removes an employee from the DOM. For Base mode, it does not need to remove that Employee's salary from the reported total.
-// HINT: You will need to figure out which employee was removed, in order to subtract their salary from the total. Consider using .text() as a getter, or look into jQuery's .data() function. This is tricky!
 
-//TODO: change names to THIS: first name, last name, ID number, job title, annual salary.
-//TODO: clear input fields
-//TODO: if the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
 
-//TODO STRETCH: styling
-//TODO STRETCH: extra functionality?
-//TODO STRETCH: 
 
+
+
+function removeUser(e){
+    let htmlTarget = $(this).parent().parent()[0]; 
+    let employeeId = htmlTarget.id
+    $(this).parent().parent().remove()
+    let employee = employees.
+    updateMonthlySalary(employee); //TODO   FIND how to access employee object from the employee ID number
+}//end removeUser
+// removeUser();
 
 
 //hard coded:
@@ -110,3 +107,35 @@ function autoAdd(){
         addToTable(hardEmployee);
     }
 }//end autoAdd();
+
+
+//used to format int into formatted money.
+function formatMoney(number){
+    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }
+
+    let salaryFormatted = number.toLocaleString("en-US",formatting_options);
+    return salaryFormatted
+}// end formatMoney
+
+
+
+
+
+
+
+
+
+//TODO: Delete btn functionality
+//Base: remove from DOM -- THATS IT
+// Create a delete button that removes an employee from the DOM. For Base mode, it does not need to remove that Employee's salary from the reported total.
+// HINT: You will need to figure out which employee was removed, in order to subtract their salary from the total. Consider using .text() as a getter, or look into jQuery's .data() function. This is tricky!
+
+//TODO: change names to THIS: first name, last name, ID number, job title, annual salary.
+//TODO: clear input fields
+//TODO: if the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
+
+//TODO STRETCH: styling
+//TODO STRETCH: extra functionality?
+//TODO STRETCH: 
+
+
