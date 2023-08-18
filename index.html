@@ -13,14 +13,36 @@
     <h2>Add Employee
     </h1>
     <section>
-        <input id="firstName" type="text" placeholder="First Name">
-        <input id="lastName" type="text" placeholder="Last Name">
-        <input id="userID" type="number" placeholder="ID">
-        <input id="Title" type="text" placeholder="Title">
-        <input id="Salary" type="number" placeholder="Salary">
+        <input id="inFirstName" type="text" placeholder="First Name">
+        <input id="inLastName" type="text" placeholder="Last Name">
+        <input id="inUserID" type="number" placeholder="ID">
+        <input id="inTitle" type="text" placeholder="Title">
+        <input id="inSalary" type="number" placeholder="Salary">
         
-        <input type="submit" value="Submit">
+        <input id="submit-btn" type="submit" value="Submit">
     </section>
+    <h2> Employees</h2>
+    <table>
+        <tr id="firstRow">
+          <th id="firstNameCol" >First Name</th>
+          <th id="lastNameCol"  >Last Name</th>
+          <th id="userIDCol"    >ID</th>
+          <th id="titleCol"     >Title</th>
+          <th id="salaryCol"    >Salary</th>
+          <th id="delete-btnCol"></th>
+        </tr>
+        <tr>
+          <td>text</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><input id="delete-btn1" type="submit" value="delete"></td>
+        </tr>
+      </table>
+      <span id="totalAmount" class="total">$20,000</span>
+      <span id="totalText" class="total">Total Monthly:</span>
+
 </body>
 </html>
 
