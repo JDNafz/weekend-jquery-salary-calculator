@@ -25,3 +25,11 @@ table {
   .total {
     float: right;
   }
+
+  .blue {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    background-color: blue;
+  }
