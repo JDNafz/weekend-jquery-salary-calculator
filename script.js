@@ -5,13 +5,14 @@ function onReady(){
     $("#submit-btn").on('click',submitUser);
     $("#resultsTable").on('click','.deleteTarget',removeUser);
     // autoAdd();
-    autAddObjects();
+    autoAddObjects();
     
 }//end onReady
 
 
 //list of employees
 let employees = {}
+// employee = {'123': employeeObj1}, {'456': employeeObj2}
 
 function submitUser(){
     
@@ -29,10 +30,8 @@ function submitUser(){
         title: titleInput,
         salary: salaryInput
     }
-    // console.log(employee); //working!
     
-    //total List of employees
-    // employees.push(employee);
+    //add to total list of employees
     employees[idInput]= employee;
 
     addToTableObj(employee);
@@ -52,22 +51,27 @@ function submitUser(){
 
 //for objects
 function addToTableObj(employee){    
-    let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>"${employee.lastName}"</td><td>${employee.id}"</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
+    let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
     
     // console.log("EmployeeRow:",row)
     $('#resultsTable').append(row)
     
-    updateMonthlySalary(employee);
+    updateMonthlySalary(employee,'up');
 
 }//end addToTable
 
 
 //calculate Total Monthly
 let runningTotal = 0
-function updateMonthlySalary(employee){                     
-
+function updateMonthlySalary(employee,updown){                     
     let employeeMonthly = employee.salary / 12
-    runningTotal += employeeMonthly
+    console.log(employeeMonthly);
+
+    if (updown==='up'){
+        runningTotal += employeeMonthly
+    } else {
+        runningTotal -= employeeMonthly
+    }
     let output = formatMoney(runningTotal);
     $('#totalAmount').text(output); 
     
@@ -75,12 +79,14 @@ function updateMonthlySalary(employee){
     //update #totalAmount span
 }//end updateTotal
 
-function removeUser(e){
+function removeUser(){
     let htmlTarget = $(this).parent().parent()[0]; 
+    // console.log("HTML TARGET ID type: ",typeof htmlTarget.id);
     let employeeId = htmlTarget.id
     $(this).parent().parent().remove()
-    let employee = employees
-    updateMonthlySalary(employee); //TODO   FIND how to access employee object from the employee ID number
+    let employee = employees[employeeId];
+    // console.log(employee);
+    updateMonthlySalary(employee,'down'); //TODO   FIND how to access employee object from the employee ID number
 }//end removeUser
 // removeUser();
 
@@ -147,13 +153,16 @@ let hardCodedEmployeesOBJECT = {
 // console.log(jd[123]);
 
 
-function autAddObjects(){
+function autoAddObjects(){
     const iterable = Object.keys(hardCodedEmployeesOBJECT);
-    console.log(iterable);
+    // console.log(iterable);
     iterable.forEach((key,obj)=> {
-        addToTableObj(hardCodedEmployeesOBJECT[key])
+        let employee = hardCodedEmployeesOBJECT[key];
+        addToTableObj(employee);
+        employees[key] = employee;
+        // console.log(employees);
     });
-}//end autoaddobjects
+}//end autoAddObjects 
 
 
 // //auto add employees 
