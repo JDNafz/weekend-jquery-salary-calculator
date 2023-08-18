@@ -55,6 +55,7 @@ function onReady(){
         //total List of employees
         employees.push(employee);
         addToTable(employee);
+        updateTotal();
         //add data to table
     }// end submitUser
 
@@ -72,11 +73,38 @@ function onReady(){
         console.log("EmployeeRow:",employeeRow)
         $('#resultsTable').append(employeeRow)
         // $('#resultsTable').append("<div class='blue'></div>")
-
+           
     }//end addToTable
     
-    for (let hardEmployee of hardCodedEmployees){
-        addToTable(hardEmployee);
-    }//end hardcoded loop
+    //calculate Total Monthly
+    function updateTotal(){                    //TODO:
+        //run through employees
+        //sum each salary
+        //divide by 12 to get monthly
+        //update #totalAmount span
+    }//end updateTotal
 
+    //TODO: Delete btn functionality
+    //Base: remove from DOM -- THATS IT
+    // Create a delete button that removes an employee from the DOM. For Base mode, it does not need to remove that Employee's salary from the reported total.
+    // HINT: You will need to figure out which employee was removed, in order to subtract their salary from the total. Consider using .text() as a getter, or look into jQuery's .data() function. This is tricky!
+
+    //TODO: change names to THIS: first name, last name, ID number, job title, annual salary.
+    //TODO: clear input fields
+    //TODO: if the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
+
+    //TODO STRETCH: styling
+    //TODO STRETCH: extra functionality?
+    //TODO STRETCH: 
+
+
+    //auto add employees 
+    function autoAdd(){
+        for (let hardEmployee of hardCodedEmployees){
+            addToTable(hardEmployee);
+        }
+    }//end autoAdd();
+    autoAdd();
+    
+    
 }//end onReady
