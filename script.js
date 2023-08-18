@@ -4,15 +4,16 @@ function onReady(){
     
     $("#submit-btn").on('click',submitUser);
     $("#resultsTable").on('click','.deleteTarget',removeUser);
-    autoAdd();
+    // autoAdd();
+    autAddObjects();
     
 }//end onReady
 
 
 //list of employees
-let employees = []
+let employees = {}
 
-function submitUser(event){
+function submitUser(){
     
     let firstNameInput =  $('#inFirstName').val(); 
     let lastNameInput = $('#inLastName').val();
@@ -31,12 +32,26 @@ function submitUser(event){
     // console.log(employee); //working!
     
     //total List of employees
-    employees.push(employee);
-    addToTable(employee);
+    // employees.push(employee);
+    employees[idInput]= employee;
+
+    addToTableObj(employee);
     //add data to table
+
 }// end submitUser
 
-function addToTable(employee){    
+// function addToTable(employee){    
+//     let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>"${employee.lastName}"</td><td>${employee.id}"</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
+    
+//     // console.log("EmployeeRow:",row)
+//     $('#resultsTable').append(row)
+    
+//     updateMonthlySalary(employee);
+// }//end addToTable
+
+
+//for objects
+function addToTableObj(employee){    
     let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>"${employee.lastName}"</td><td>${employee.id}"</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
     
     // console.log("EmployeeRow:",row)
@@ -45,6 +60,7 @@ function addToTable(employee){
     updateMonthlySalary(employee);
 
 }//end addToTable
+
 
 //calculate Total Monthly
 let runningTotal = 0
@@ -59,55 +75,93 @@ function updateMonthlySalary(employee){
     //update #totalAmount span
 }//end updateTotal
 
-
-
-
-
-
 function removeUser(e){
     let htmlTarget = $(this).parent().parent()[0]; 
     let employeeId = htmlTarget.id
     $(this).parent().parent().remove()
-    let employee = employees.
+    let employee = employees
     updateMonthlySalary(employee); //TODO   FIND how to access employee object from the employee ID number
 }//end removeUser
 // removeUser();
 
 
-//hard coded:
-let hardCodedEmployees = [{
-    firstName: "JD",
-    id: "123",
-    lastName: "Nafziger",
-    salary: 90000,
-    title: "Jr Developer"
-    },{
-    firstName: "Alison",
-    id: "234",
-    lastName: "Hoffman",
-    salary: 200000,
-    title: "Senior HR Manager"
-    },{
-    firstName: "Brisa",
-    id: "84154",
-    lastName: "Peacock",
-    salary: 55000,
-    title: "Farmer"
-    },{
-    firstName: "Alyssa",
-    id: "5678",
-    lastName: "Glandville",
-    salary: 72000,
-    title: "Dancer"
-    }
-]
-//auto add employees 
-function autoAdd(){
-    for (let hardEmployee of hardCodedEmployees){
-        addToTable(hardEmployee);
-    }
-}//end autoAdd();
+// //hard coded:
+// let hardCodedEmployees = [
+//     {
+//         firstName: "JD",
+//         id: "123",
+//         lastName: "Nafziger",
+//         salary: 90000,
+//         title: "Jr Developer"
+//     },{
+//         firstName: "Alison",
+//         id: "234",
+//         lastName: "Hoffman",
+//         salary: 200000,
+//         title: "Senior HR Manager"
+//     },{
+//         firstName: "Brisa",
+//         id: "84154",
+//         lastName: "Peacock",
+//         salary: 55000,
+//         title: "Farmer"
+//     },{
+//         firstName: "Alyssa",
+//         id: "5678",
+//         lastName: "Glandville",
+//         salary: 72000,
+//         title: "Dancer"
+//     }
+// ]
+let hardCodedEmployeesOBJECT = {
+    123 : {     firstName: "JD",
+                id: "123",
+                lastName: "Nafziger",
+                salary: 90000,
+                title: "Jr Developer"
+            },
+    234 :{
+            firstName: "Alison",
+            id: "234",
+            lastName: "Hoffman",
+            salary: 200000,
+            title: "Senior HR Manager"
+            },
+    84154 : {
+            firstName: "Brisa",
+            id: "84154",
+            lastName: "Peacock",
+            salary: 55000,
+            title: "Farmer"
+            },
+    5678: {
+            firstName: "Alyssa",
+            id: "5678",
+            lastName: "Glandville",
+            salary: 72000,
+            title: "Dancer"
+            }
+}//close hardCodedEmployeesOBJECT
 
+// let jd = {'123':{firstName: "JD"}};
+// console.log(jd[123]);
+
+
+function autAddObjects(){
+    const iterable = Object.keys(hardCodedEmployeesOBJECT);
+    console.log(iterable);
+    iterable.forEach((key,obj)=> {
+        addToTableObj(hardCodedEmployeesOBJECT[key])
+    });
+}//end autoaddobjects
+
+
+// //auto add employees 
+// function autoAdd(){
+//     for (let hardEmployee of hardCodedEmployees){
+//         addToTable(hardEmployee);
+//     }
+// }//end autoAdd();
 
 //used to format int into formatted money.
 function formatMoney(number){
