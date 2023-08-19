@@ -36,3 +36,9 @@ span {
   margin: 5px; */
   background-color: red;
 } 
+
+.error-highlight{
+  outline: none;
+  border-color: #bf3826;
+  box-shadow: 0 0 10px red;
+}
