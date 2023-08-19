@@ -34,6 +34,7 @@ function onReady(){
 
     //used to AUTO GENERATE USERS 
     autoAdd(); 
+    $('#inFirstName').focus();
 }//end onReady
 
 function hitEnter(e){
@@ -51,76 +52,92 @@ function submitUser(){
     let salaryInput = Number(inSalary); //separate before making a number to check if string is empty.
 
     //if id was already entered
-    const iterable = Object.keys(employees);
-    for (let id of iterable){
-        if (idInput === id){
-            alert(`Oops, the id "${id}" has already been used. Please double check the user ID.`)
-            $('#inUserID').val('');
-            $('#inUserID').addClass('error-highlight');
-            return;
-        } else {
-            $('#inUserID').removeClass('error-highlight');
-        }
-    }
+    if (idAlreadyUsed(idInput)) { return }
 
     //if fields are empty
-    if (firstNameInput === "" || lastNameInput === "" || titleInput === "" || idInput === ""|| inSalary=== ""){ 
-        if (firstNameInput === "") {
-            $('#inFirstName').addClass('error-highlight');
-            } else {
-                $('#inFirstName').removeClass('error-highlight');
-            }
-        if (lastNameInput === "" ) {
-            $('#inLastName').addClass('error-highlight');
-            } else {
-                $('#inLastName').removeClass('error-highlight');
-            }
-        if (titleInput === ""){
-                $('#inTitle').addClass('error-highlight');
-            } else {
-                $('#inTitle').removeClass('error-highlight');
-            }
-        if (idInput === ""){
-                $('#inUserID').addClass('error-highlight');
-            } else {
-                $('#inUserID').removeClass('error-highlight');
-            }
-        if (inSalary === ""){
-                $('#inSalary').addClass('error-highlight');
-            } else {
-                $('#inSalary').removeClass('error-highlight');
-            }
-        alert("Please fill in all fields to submit.")
-        return;
-    }//end if empties
+    if (emptyFields(firstNameInput,lastNameInput,idInput,titleInput,inSalary)){  return }
+    
+    removeInputHighlight();
 
-    // catch the last empty field to be corrected before submit.
-    $('#inFirstName').removeClass('error-highlight');
-    $('#inLastName').removeClass('error-highlight');
-    $('#inTitle').removeClass('error-highlight');
-    $('#inSalary').removeClass('error-highlight');
-    $('#idInput').removeClass('error-highlight');
     //clear input fields:
     $('#inFirstName').val(''); 
     $('#inLastName').val('');
     $('#inUserID').val('');
     $('#inTitle').val('');
     $('#inSalary').val('');
-
     // create an employee object to store in 'employees'
     let employee = { 
         firstName: firstNameInput,
         lastName: lastNameInput,
         id: idInput,
         title: titleInput,
-        salary: salaryInput
-    }
+        salary: salaryInput }
     employees[idInput]= employee; 
 
     //add data to table
     addRow(employee);
 
 }// end submitUser
+
+function idAlreadyUsed(idInput){
+    const iterable = Object.keys(employees);
+    for (let id of iterable){
+        if (idInput === id){
+            alert(`Oops, the id "${id}" has already been used. Please double check the user ID.`)
+            $('#inUserID').val('');
+            $('#inUserID').addClass('error-highlight');
+            $('#inUserID').focus();
+            return true;
+        } else {
+            $('#inUserID').removeClass('error-highlight');
+            return false;
+        }
+    }
+}
+
+function emptyFields(firstNameInput,lastNameInput,idInput,titleInput,inSalary){
+    if (firstNameInput === "" || lastNameInput === "" || titleInput === "" || idInput === ""|| inSalary=== ""){ 
+        if (inSalary === ""){
+            $('#inSalary').addClass('error-highlight');// Highlight Red
+            $('#inSalary').focus(); // FOCUS
+        } else {
+            $('#inSalary').removeClass('error-highlight');
+        }
+        if (idInput === ""){
+            $('#inUserID').addClass('error-highlight');
+        } else {
+            $('#inUserID').removeClass('error-highlight');
+        }
+        if (titleInput === ""){
+            $('#inTitle').addClass('error-highlight');
+        } else {
+            $('#inTitle').removeClass('error-highlight');
+        }
+        if (lastNameInput === "" ) {
+            $('#inLastName').addClass('error-highlight');
+        } else {
+            $('#inLastName').removeClass('error-highlight');
+        }
+        if (firstNameInput === "") {
+            $('#inFirstName').addClass('error-highlight');
+        } else {
+            $('#inFirstName').removeClass('error-highlight');
+        }
+        alert("Please fill in all fields to submit.")
+
+            return true;
+    }//end if OR OR OR
+    return false;
+};
+function removeInputHighlight(){
+     // catch the last empty field to be corrected before submit.
+     $('#inFirstName').removeClass('error-highlight');
+     $('#inLastName').removeClass('error-highlight');
+     $('#inTitle').removeClass('error-highlight');
+     $('#inSalary').removeClass('error-highlight');
+     $('#idInput').removeClass('error-highlight');
+}
+
 
 
 
@@ -131,6 +148,7 @@ function addRow(employee){
     $('#resultsTable').append(row)
     
     updateMonthly(employee,'add');
+    $('#inFirstName').focus();
 }//end addToTable
 
 // runningTotal tracks Monthly Cost without needed to access DOM
