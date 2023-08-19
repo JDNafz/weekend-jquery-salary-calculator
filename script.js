@@ -1,29 +1,48 @@
 $(document).ready(onReady);
 
+//commented example of how the data is formatted.
+let employees = {
+/* 
+employees = 
+first employee
+    {    key          :  value                 
+        'numberString': {object}  
+    }, 
+    {   'stringID' : {}
+        '456'      : employeeObj
+    }, 
+        ...
+        employees[123] = 
+      //single object in employees 'container' object
+                        {   firstName: "JD",
+                            id: "123",          
+                            lastName: "Nafziger",
+                            salary: 90000,
+                            title: "Jr Developer"
+                        }
+    //id gets repeated (might be inefficient,but I found it helpful conceptually)
+    */
+}
+
 function onReady(){
     $("#submit-btn").on('click',submitUser);
     // allows you to hit enter after typing salary to submit.
     $("#inSalary").on('keyup', hitEnter);
 
-
+    //Event Delegation Listener 
     $("#resultsTable").on('click','.deleteTarget',removeRow);
-    autoAdd(); //used to AUTO GENERATE USERS 
+
+    //used to AUTO GENERATE USERS 
+    autoAdd(); 
 }//end onReady
-
-
-
-let employees = {}
-// employee = {'123': {}  }, {'456': employeeObj2}, ...
-// access it with employees[123]
 
 function hitEnter(e){
     if (e.key === 'Enter' || e.keyCode === 13) {
         $("#submit-btn").trigger("click");
     }
-}
+}//end hit enter
 
-function submitUser(){
-    
+function submitUser(){    
     let firstNameInput =  $('#inFirstName').val(); 
     let lastNameInput = $('#inLastName').val();
     let idInput = $('#inUserID').val();
