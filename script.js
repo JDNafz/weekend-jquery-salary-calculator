@@ -159,17 +159,20 @@ function updateMonthly(employee,addOrRemove){
 }//end updateTotal
 
 function removeRow(){
-    // find the html of the grandparent
-    let htmlTarget = $(this).parent().parent()[0]; 
-    //take the id string from the html element
-    let employeeId = htmlTarget.id
-    //remove the tableRow
-    $(this).parent().parent().remove()
-    //access the employee object using the id String
-    let employee = employees[employeeId];
-    //calculate removing their income from the Monthly total
-    updateMonthly(employee,'remove'); 
-}//end removeUser
+    $(this).remove();
+}
+// function removeRow(){
+//     // find the html of the grandparent
+//     let htmlTarget = $(this).parent().parent()[0]; 
+//     //take the id string from the html element
+//     let employeeId = htmlTarget.id
+//     //remove the tableRow
+//     $(this).parent().parent().remove()
+//     //access the employee object using the id String
+//     let employee = employees[employeeId];
+//     //calculate removing their income from the Monthly total
+//     updateMonthly(employee,'remove'); 
+// }//end removeUser
 
 //Format number into currency display
 function formatMoney(number){
