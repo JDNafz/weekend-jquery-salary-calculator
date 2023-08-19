@@ -1,18 +1,15 @@
 $(document).ready(onReady);
 
 function onReady(){
-    
     $("#submit-btn").on('click',submitUser);
-    $("#resultsTable").on('click','.deleteTarget',removeUser);
-    // autoAdd();
-    autoAddObjects();
-    
+    $("#resultsTable").on('click','.deleteTarget',removeRow);
+    autoAdd(); //used to AUTO GENERATE USERS 
 }//end onReady
 
-
-//list of employees
+//
 let employees = {}
-// employee = {'123': employeeObj1}, {'456': employeeObj2}
+// employee = {'123': employeeObj1}, {'456': employeeObj2}, ...
+// access it with employees[123]
 
 function submitUser(){
     
@@ -34,91 +31,70 @@ function submitUser(){
     //add to total list of employees
     employees[idInput]= employee;
 
-    addToTableObj(employee);
+    addRow(employee);
     //add data to table
+
+    //clear input fields:
+    $('#inFirstName').val(''); 
+    $('#inLastName').val('');
+    $('#inUserID').val('');
+    $('#inTitle').val('');
+    $('#inSalary').val('');
 
 }// end submitUser
 
-// function addToTable(employee){    
-//     let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>"${employee.lastName}"</td><td>${employee.id}"</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
-    
-//     // console.log("EmployeeRow:",row)
-//     $('#resultsTable').append(row)
-    
-//     updateMonthlySalary(employee);
-// }//end addToTable
-
-
-//for objects
-function addToTableObj(employee){    
+function addRow(employee){    
+    //format the string to append
     let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
     
     // console.log("EmployeeRow:",row)
     $('#resultsTable').append(row)
     
-    updateMonthlySalary(employee,'up');
-
+    updateMonthly(employee,'up');
 }//end addToTable
 
-
-//calculate Total Monthly
+// runningTotal tracks Monthly Cost without needed to access DOM
 let runningTotal = 0
-function updateMonthlySalary(employee,updown){                     
+function updateMonthly(employee,updown){     
+    //calculate monthly cost for this employee                
     let employeeMonthly = employee.salary / 12
-    console.log(employeeMonthly);
-
+    //adding or removing employee
     if (updown==='up'){
         runningTotal += employeeMonthly
     } else {
         runningTotal -= employeeMonthly
     }
     let output = formatMoney(runningTotal);
-    $('#totalAmount').text(output); 
+
+    //update DOM
+    $('#totalAmount').text("Total Monthly Cost: "+output); 
     
-    
-    //update #totalAmount span
+    //check if over 20k, apply/remove red-fill
+    if (runningTotal> 20000){
+        $('#totalAmount').addClass('red-fill');
+    } else{
+        $('#totalAmount').removeClass('red-fill');
+    };
+
 }//end updateTotal
 
-function removeUser(){
+function removeRow(){
     let htmlTarget = $(this).parent().parent()[0]; 
-    // console.log("HTML TARGET ID type: ",typeof htmlTarget.id);
     let employeeId = htmlTarget.id
     $(this).parent().parent().remove()
     let employee = employees[employeeId];
-    // console.log(employee);
-    updateMonthlySalary(employee,'down'); //TODO   FIND how to access employee object from the employee ID number
+    updateMonthly(employee,'down'); //TODO   FIND how to access employee object from the employee ID number
 }//end removeUser
-// removeUser();
 
+//Format number into currency display
+function formatMoney(number){
+    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }
+    
+    let salaryFormatted = number.toLocaleString("en-US",formatting_options);
+    return salaryFormatted
+}// end formatMoney
 
-// //hard coded:
-// let hardCodedEmployees = [
-//     {
-//         firstName: "JD",
-//         id: "123",
-//         lastName: "Nafziger",
-//         salary: 90000,
-//         title: "Jr Developer"
-//     },{
-//         firstName: "Alison",
-//         id: "234",
-//         lastName: "Hoffman",
-//         salary: 200000,
-//         title: "Senior HR Manager"
-//     },{
-//         firstName: "Brisa",
-//         id: "84154",
-//         lastName: "Peacock",
-//         salary: 55000,
-//         title: "Farmer"
-//     },{
-//         firstName: "Alyssa",
-//         id: "5678",
-//         lastName: "Glandville",
-//         salary: 72000,
-//         title: "Dancer"
-//     }
-// ]
+// START --------------------- CODE to AUTO GENERATE USERS ----------------
 let hardCodedEmployeesOBJECT = {
     123 : {     firstName: "JD",
                 id: "123",
@@ -148,57 +124,24 @@ let hardCodedEmployeesOBJECT = {
             title: "Dancer"
             }
 }//close hardCodedEmployeesOBJECT
-
-// let jd = {'123':{firstName: "JD"}};
-// console.log(jd[123]);
-
-
-function autoAddObjects(){
+function autoAdd(){
     const iterable = Object.keys(hardCodedEmployeesOBJECT);
     // console.log(iterable);
     iterable.forEach((key,obj)=> {
         let employee = hardCodedEmployeesOBJECT[key];
-        addToTableObj(employee);
+        addRow(employee);
         employees[key] = employee;
         // console.log(employees);
     });
 }//end autoAddObjects 
+// END ----------------------- CODE to AUTO GENERATE USERS ----------------
 
+//QUESTION: How do people format money?
+//                  does that make it easier to use text() as a getter?
 
-// //auto add employees 
-// function autoAdd(){
-//     for (let hardEmployee of hardCodedEmployees){
-//         addToTable(hardEmployee);
-//     }
-// }//end autoAdd();
-
-//used to format int into formatted money.
-function formatMoney(number){
-    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }
-
-    let salaryFormatted = number.toLocaleString("en-US",formatting_options);
-    return salaryFormatted
-}// end formatMoney
-
-
-
-
-
-
-
-
-
-//TODO: Delete btn functionality
-//Base: remove from DOM -- THATS IT
-// Create a delete button that removes an employee from the DOM. For Base mode, it does not need to remove that Employee's salary from the reported total.
-// HINT: You will need to figure out which employee was removed, in order to subtract their salary from the total. Consider using .text() as a getter, or look into jQuery's .data() function. This is tricky!
-
-//TODO: change names to THIS: first name, last name, ID number, job title, annual salary.
-//TODO: clear input fields
-//TODO: if the total monthly cost exceeds $20,000, add a red background color to the total monthly cost.
 
 //TODO STRETCH: styling
+//TODO STRETCH: only accept unique userIDs
 //TODO STRETCH: extra functionality?
-//TODO STRETCH: 
 
 
