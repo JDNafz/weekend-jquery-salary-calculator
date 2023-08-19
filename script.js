@@ -27,7 +27,7 @@ first employee
 function onReady(){
     $("#submit-btn").on('click',submitUser);
     // allows you to hit enter after typing salary to submit.
-    $("#inSalary").on('keyup', hitEnter);
+    $("input").on('keyup', hitEnter);
 
     //Event Delegation Listener 
     $("#resultsTable").on('click','.deleteTarget',removeRow);
@@ -64,8 +64,8 @@ function submitUser(){
     }
 
     //if fields are empty
-    if (firstNameInput === "" || lastNameInput === "" || titleInput === "" || idInput === ""){
-        if (firstNameInput === "" || inSalary === "") {
+    if (firstNameInput === "" || lastNameInput === "" || titleInput === "" || idInput === ""|| inSalary=== ""){ 
+        if (firstNameInput === "") {
             $('#inFirstName').addClass('error-highlight');
             } else {
                 $('#inFirstName').removeClass('error-highlight');
@@ -128,7 +128,6 @@ function addRow(employee){
     //format the string to append
     let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
     
-    // console.log("EmployeeRow:",row)
     $('#resultsTable').append(row)
     
     updateMonthly(employee,'add');
@@ -236,9 +235,14 @@ DONE: update DOM with monthly costs
 DONE: if monthly costs are over 20k, add red background
 DONE: delete button remove employee from DOM
 
+TODO: README.md
+
 TODO STRETCH: styling
 TODO STRETCH: extra functionality?
 
+TODO STRETCH: add example row that is removed when first user is submitted.
+TODO STRETCH: make 'Name' field, combine first and last
+TODO STRETCH: put ID in first col, for better format
 
 
 DONE STRETCH: update monthly cost after removal
