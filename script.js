@@ -94,15 +94,20 @@ function submitUser(){
         return;
     }//end if empties
 
-    // catch if the last one corrected before submit.
+    // catch the last empty field to be corrected before submit.
     $('#inFirstName').removeClass('error-highlight');
     $('#inLastName').removeClass('error-highlight');
     $('#inTitle').removeClass('error-highlight');
     $('#inSalary').removeClass('error-highlight');
     $('#idInput').removeClass('error-highlight');
+    //clear input fields:
+    $('#inFirstName').val(''); 
+    $('#inLastName').val('');
+    $('#inUserID').val('');
+    $('#inTitle').val('');
+    $('#inSalary').val('');
 
-
-    // layout of the employee object:
+    // create an employee object to store in 'employees'
     let employee = { 
         firstName: firstNameInput,
         lastName: lastNameInput,
@@ -110,19 +115,10 @@ function submitUser(){
         title: titleInput,
         salary: salaryInput
     }
-    
-    //add to total list of employees
     employees[idInput]= employee; 
 
-    addRow(employee);
     //add data to table
-
-    //clear input fields:
-    $('#inFirstName').val(''); 
-    $('#inLastName').val('');
-    $('#inUserID').val('');
-    $('#inTitle').val('');
-    $('#inSalary').val('');
+    addRow(employee);
 
 }// end submitUser
 
@@ -135,16 +131,16 @@ function addRow(employee){
     // console.log("EmployeeRow:",row)
     $('#resultsTable').append(row)
     
-    updateMonthly(employee,'up');
+    updateMonthly(employee,'add');
 }//end addToTable
 
 // runningTotal tracks Monthly Cost without needed to access DOM
 let runningTotal = 0
-function updateMonthly(employee,updown){     
+function updateMonthly(employee,addOrRemove){     
     //calculate monthly cost for this employee                
     let employeeMonthly = employee.salary / 12
     //adding or removing employee
-    if (updown==='up'){
+    if (addOrRemove==='add'){
         runningTotal += employeeMonthly
     } else {
         runningTotal -= employeeMonthly
@@ -164,17 +160,22 @@ function updateMonthly(employee,updown){
 }//end updateTotal
 
 function removeRow(){
-    console.log($(this).parent().parent()[0]);
+    // find the html of the grandparent
     let htmlTarget = $(this).parent().parent()[0]; 
+    //take the id string from the html element
     let employeeId = htmlTarget.id
+    //remove the tableRow
     $(this).parent().parent().remove()
+    //access the employee object using the id String
     let employee = employees[employeeId];
-    updateMonthly(employee,'down'); //TODO   FIND how to access employee object from the employee ID number
+    //calculate removing their income from the Monthly total
+    updateMonthly(employee,'remove'); 
 }//end removeUser
 
 //Format number into currency display
 function formatMoney(number){
-    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }
+    // https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-strings
+    let formatting_options = { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }
     
     let salaryFormatted = number.toLocaleString("en-US",formatting_options);
     return salaryFormatted
@@ -226,8 +227,23 @@ function autoAdd(){
 //                  does that make it easier to use text() as a getter?
 
 
-//TODO STRETCH: styling
-//TODO STRETCH: only accept unique userIDs
-//TODO STRETCH: extra functionality?
+/*
+
+DONE: Take in inputs
+DONE: store inputs
+DONE: calculate monthly costs
+DONE: update DOM with monthly costs
+DONE: if monthly costs are over 20k, add red background
+DONE: delete button remove employee from DOM
+
+TODO STRETCH: styling
+TODO STRETCH: extra functionality?
 
 
+
+DONE STRETCH: update monthly cost after removal
+DONE STRETCH: only accept unique userIDs 
+DONE STRETCH: alert with errors if fields are empty.
+
+
+*/
