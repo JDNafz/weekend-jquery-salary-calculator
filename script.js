@@ -33,7 +33,7 @@ function onReady(){
     $("#resultsTable").on('click','.deleteTarget',removeRow);
 
     //used to AUTO GENERATE USERS 
-    // autoAdd(); //used for development
+    autoAdd(); //used for development
     $('#inFirstName').focus();
 }//end onReady
 
@@ -262,7 +262,7 @@ TODO: README.md
 TODO STRETCH: styling
 
 TODO STRETCH: customize monthly goal expenditure from 20k to anything.
-
+TODO STRETCH: estimate PTO, health insurance, other added costs per employee for monthly budget
 
 DONE STRETCH: add example row that is removed when first user is submitted.
 DONE STRETCH: make 'Name' field, combine first and last
