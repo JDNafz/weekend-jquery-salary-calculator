@@ -154,10 +154,10 @@ function removeRow(){
     let htmlTarget = $(this).parent().parent()[0]; 
     //take the id string from the html element
     let employeeId = htmlTarget.id
-    //remove the tableRow
-    $(this).parent().parent().remove()
     //access the employee object using the id String
     let employee = employees[employeeId];
+    //remove the tableRow
+    $(this).parentsUntil("tbody").remove();
     //calculate removing their income from the Monthly total
     updateMonthly(employee,'remove'); 
 }//end removeUser
