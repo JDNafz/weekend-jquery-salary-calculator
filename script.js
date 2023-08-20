@@ -97,6 +97,7 @@ function idAlreadyUsed(idInput){
 
 function emptyFields(firstNameInput,lastNameInput,idInput,titleInput,inSalary){
     if (firstNameInput === "" || lastNameInput === "" || titleInput === "" || idInput === ""|| inSalary=== ""){ 
+        // console.log("SOMETHING WAS EMPTY");
         if (inSalary === ""){
             $('#inSalary').addClass('error-highlight');// Highlight Red
             $('#inSalary').focus(); // FOCUS
@@ -143,7 +144,7 @@ function removeInputHighlight(){
 
 function addRow(employee){    
     //format the string to append
-    let row = `<tr id="${employee.id}"><td> ${employee.firstName}</td><td>${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
+    let row = `<tr id="${employee.id}"><td> ${employee.firstName} ${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
     
     $('#resultsTable').append(row)
     
@@ -229,6 +230,7 @@ let hardCodedEmployeesOBJECT = {
             }
 }//close hardCodedEmployeesOBJECT
 function autoAdd(){
+    //note: auto add bypasses unique ID check.
     const iterable = Object.keys(hardCodedEmployeesOBJECT);
     // console.log(iterable);
     iterable.forEach((key,obj)=> {
@@ -258,7 +260,7 @@ TODO: README.md
 TODO STRETCH: styling
 TODO STRETCH: extra functionality?
 
-TODO STRETCH: customize monthly goal expendature from 20k to anything.
+TODO STRETCH: customize monthly goal expenditure from 20k to anything.
 TODO STRETCH: add example row that is removed when first user is submitted.
 TODO STRETCH: make 'Name' field, combine first and last
 TODO STRETCH: put ID in first col, for better format
