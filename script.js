@@ -33,7 +33,7 @@ function onReady(){
     $("#resultsTable").on('click','.deleteTarget',removeRow);
 
     //used to AUTO GENERATE USERS 
-    autoAdd(); 
+    autoAdd(); //used for development
     $('#inFirstName').focus();
 }//end onReady
 
@@ -44,6 +44,7 @@ function hitEnter(e){
 }//end hit enter
 
 function submitUser(){    
+    //assign input values to variables
     let firstNameInput =  $('#inFirstName').val(); 
     let lastNameInput = $('#inLastName').val();
     let idInput = $('#inUserID').val();
@@ -58,6 +59,8 @@ function submitUser(){
     if (emptyFields(firstNameInput,lastNameInput,idInput,titleInput,inSalary)){  return }
     
     removeInputHighlight();
+     // remove Display Row
+     $('#tempRow').remove();
 
     //clear input fields:
     $('#inFirstName').val(''); 
@@ -197,6 +200,7 @@ function formatMoney(number){
     return salaryFormatted
 }// end formatMoney
 
+
 // START --------------------- CODE to AUTO GENERATE USERS ----------------
 let hardCodedEmployeesOBJECT = {
     123 : {     firstName: "JD",
@@ -244,7 +248,7 @@ function autoAdd(){
 //                  does that make it easier to use text() as a getter?
 
 
-/*
+/* TODO / DONE
 
 DONE: Take in inputs
 DONE: store inputs
@@ -256,14 +260,13 @@ DONE: delete button remove employee from DOM
 TODO: README.md
 
 TODO STRETCH: styling
-TODO STRETCH: extra functionality?
 
 TODO STRETCH: customize monthly goal expenditure from 20k to anything.
-TODO STRETCH: add example row that is removed when first user is submitted.
-TODO STRETCH: make 'Name' field, combine first and last
-TODO STRETCH: put ID in first col, for better format
 
 
+DONE STRETCH: add example row that is removed when first user is submitted.
+DONE STRETCH: make 'Name' field, combine first and last
+DONE STRETCH: flexy boxes
 DONE STRETCH: update monthly cost after removal
 DONE STRETCH: only accept unique userIDs 
 DONE STRETCH: alert with errors if fields are empty.

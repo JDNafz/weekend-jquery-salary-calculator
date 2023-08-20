@@ -10,7 +10,7 @@ h1 {
   color:rgba(95, 17, 232, 1);
   background-color:rgb(204, 179, 248);
 }
-.deleteTarget {
+.deleteTarget, .tempDelete {
   color:rgba(95, 17, 232, 1);
   border-color:rgba(255, 128, 202, 0.493);
 }
