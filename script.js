@@ -139,9 +139,6 @@ function removeInputHighlight(){
      $('#idInput').removeClass('error-highlight');
 }
  
-
-
-
 function addRow(employee){    
     //format the string to append
     let row = `<tr id="${employee.id}"><td> ${employee.firstName} ${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget btn' type='submit' value='delete'></td></tr>`
@@ -151,6 +148,19 @@ function addRow(employee){
     updateMonthly(employee,'add');
     $('#inFirstName').focus();
 }//end addToTable
+
+function removeRow(){
+    // find the html of the grandparent
+    let htmlTarget = $(this).parent().parent()[0]; 
+    //take the id string from the html element
+    let employeeId = htmlTarget.id
+    //remove the tableRow
+    $(this).parent().parent().remove()
+    //access the employee object using the id String
+    let employee = employees[employeeId];
+    //calculate removing their income from the Monthly total
+    updateMonthly(employee,'remove'); 
+}//end removeUser
 
 // runningTotal tracks Monthly Cost without needed to access DOM
 let runningTotal = 0
@@ -177,18 +187,6 @@ function updateMonthly(employee,addOrRemove){
 
 }//end updateTotal
 
-function removeRow(){
-    // find the html of the grandparent
-    let htmlTarget = $(this).parent().parent()[0]; 
-    //take the id string from the html element
-    let employeeId = htmlTarget.id
-    //remove the tableRow
-    $(this).parent().parent().remove()
-    //access the employee object using the id String
-    let employee = employees[employeeId];
-    //calculate removing their income from the Monthly total
-    updateMonthly(employee,'remove'); 
-}//end removeUser
 
 //Format number into currency display
 function formatMoney(number){

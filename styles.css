@@ -8,14 +8,27 @@ body {
 
 h1 {
   color:rgba(95, 17, 232, 1);
-  background-color: rgb(140, 89, 228);
+  background-color:rgb(204, 179, 248);
 }
-.btn {
+.deleteTarget {
   color:rgba(95, 17, 232, 1);
+  border-color:rgba(255, 128, 202, 0.493);
+}
+input{
+  color:rgba(95, 17, 232, 1);
+  border-color:rgba(95, 17, 232, 1);
+}
+input::placeholder {
+  color:rgb(204, 179, 248);
+}
+input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #719ECE;
 }
 .red-fill {
   color: black;
-  background-color: rgb(214, 126, 126);
+  background-color: rgba(255, 128, 202, 0.493);
+  padding: 2px 2px 2px 4px
 } 
 .error-highlight{
   outline: none;
@@ -23,29 +36,43 @@ h1 {
   box-shadow: 0 0 10px red;
 } 
 
-
-section { /* top, right, bottom, left */
-  display: inline-block;
-  border: 2px solid red;
+#container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+section{
   vertical-align: text-top;
   margin: 0 10px;
   padding: 0 3% 2% 2% ;
 }
+#tableSection { /* top, right, bottom, left */
+  flex-grow:5;
+  align-self: center;
+}
+#inputSection {
+  flex-grow:1;
+  align-self: center;
+}
 
-.total {
-  float: right;
-  margin: 0% 0% 0% 0% ;
-  vertical-align: bottom;
+#inputs{
+  display:flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  margin: 0 25% ;
 }
 
 input {
   display: block;
   margin: 3px;
   background: hsl(232, 22%, 90%);
+  border-radius: 2px;
+  border-style:solid;
 }
 
 #submit-btn {
-  float: right;
+  margin: 0 5% 0 80%;
 }
 
 h1 {
@@ -56,24 +83,41 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
 }
 h2 {
-  font-size: medium;
-  margin: 0 0;
-  padding: 0 0 2% 2% ;
+  
+  font-size: large;
+  margin: 0 0 0 20%;
+  padding: 0 0 5px 5px ;
+}
+#input h2 {
+  margin: 0 0 0 30%;
 }
 
 table {
   width: 90%;
+  margin: 0;
   text-align: left;
   /* border:2px solid #bf3826 */
-  margin: 0 0;
-  padding: 1% 0 0 2% ;
-}
-table, 
-th, td {
-    text-align: left;
-    white-space: nowrap;
-    /* border: solid black; */
-    /* top, right, bottom, left */
-    padding:  0 20% 0 2%;
+
+  padding: 1% 0 0 0 ;
 }
 
+
+th, td {
+
+  text-align: left;
+  white-space: nowrap;
+  /* border: solid black; */
+  /* top, right, bottom, left */
+  padding:  .5em;
+  }
+  .total {
+    float: right;
+    margin: 0% 0% 0% 0% ;
+    vertical-align: bottom;
+    padding: 0 28% 0 0;
+  }
+
+
+
+  
+  
