@@ -144,7 +144,7 @@ function removeInputHighlight(){
  
 function addRow(employee){    
     //format the string to append
-    let row = `<tr id="${employee.id}"><td> ${employee.firstName} ${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget' type='submit' value='delete'></td></tr>`
+    let row = `<tr id="${employee.id}"><td> ${employee.firstName} ${employee.lastName}</td><td>${employee.id}</td><td>${employee.title}</td><td>${formatMoney(employee.salary)}</td><td><input id='delete${employee.id}' class ='deleteTarget btn' type='submit' value='delete'></td></tr>`
     
     $('#resultsTable').append(row)
     
@@ -213,7 +213,7 @@ let hardCodedEmployeesOBJECT = {
             firstName: "Alison",
             id: "234",
             lastName: "Hoffman",
-            salary: 200000,
+            salary: 120000,
             title: "Senior HR Manager"
             },
     84154 : {
