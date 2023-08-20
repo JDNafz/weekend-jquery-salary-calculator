@@ -1,3 +1,24 @@
+#container {
+  border: 2px solid blue;
+}
+
+section {
+  max-width:max-content;
+  display: inline-block;
+  border: 2px solid red;
+  overflow:hidden;
+  vertical-align: text-top;
+}
+
+input {
+  display: block;
+  margin: 3px;
+}
+
+#submit-btn {
+  float: right;
+}
+
 h1 {
     background-color: rgb(130, 130, 130);
     color: rgb(230, 230, 230);
@@ -43,4 +64,4 @@ span {
   outline: none;
   border-color: #bf3826;
   box-shadow: 0 0 10px red;
-}
+} 

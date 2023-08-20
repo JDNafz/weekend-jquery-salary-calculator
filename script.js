@@ -137,7 +137,7 @@ function removeInputHighlight(){
      $('#inSalary').removeClass('error-highlight');
      $('#idInput').removeClass('error-highlight');
 }
-
+ 
 
 
 
@@ -258,6 +258,7 @@ TODO: README.md
 TODO STRETCH: styling
 TODO STRETCH: extra functionality?
 
+TODO STRETCH: customize monthly goal expendature from 20k to anything.
 TODO STRETCH: add example row that is removed when first user is submitted.
 TODO STRETCH: make 'Name' field, combine first and last
 TODO STRETCH: put ID in first col, for better format
