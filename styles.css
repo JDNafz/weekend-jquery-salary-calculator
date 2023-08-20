@@ -1,18 +1,47 @@
-#container {
-  border: 2px solid blue;
+/* colors */
+body {
+  /* display: block; */
+  /* height: 100vh; */
+  background: hsl(232, 22%, 90%);
+  color: rgba(95, 17, 232, 1);
 }
 
-section {
-  max-width:max-content;
+h1 {
+  color:rgba(95, 17, 232, 1);
+  background-color: rgb(140, 89, 228);
+}
+.btn {
+  color:rgba(95, 17, 232, 1);
+}
+.red-fill {
+  color: black;
+  background-color: rgb(214, 126, 126);
+} 
+.error-highlight{
+  outline: none;
+  border-color: 2px #bf3826;
+  box-shadow: 0 0 10px red;
+} 
+
+
+section { /* top, right, bottom, left */
   display: inline-block;
   border: 2px solid red;
-  overflow:hidden;
   vertical-align: text-top;
+  margin: 0 10px;
+  padding: 0 3% 2% 2% ;
+}
+
+.total {
+  float: right;
+  margin: 0% 0% 0% 0% ;
+  vertical-align: bottom;
 }
 
 input {
   display: block;
   margin: 3px;
+  background: hsl(232, 22%, 90%);
 }
 
 #submit-btn {
@@ -20,48 +49,31 @@ input {
 }
 
 h1 {
-    background-color: rgb(130, 130, 130);
-    color: rgb(230, 230, 230);
-    padding: 20px;
-    margin: 0;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  margin: 0 0 5% 0 ;
+  padding: 2%;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+h2 {
+  font-size: medium;
+  margin: 0 0;
+  padding: 0 0 2% 2% ;
 }
 
 table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 900px;
-    align-content: center;
+  width: 90%;
+  text-align: left;
+  /* border:2px solid #bf3826 */
+  margin: 0 0;
+  padding: 1% 0 0 2% ;
 }
-
+table, 
 th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
+    text-align: left;
+    white-space: nowrap;
+    /* border: solid black; */
+    /* top, right, bottom, left */
+    padding:  0 20% 0 2%;
 }
 
-th {
-  background-color: #f2f2f2;
-}
-
-.total {
-  float: right;
-}
-
-span {
-  margin: 5px;
-}
-.red-fill {
-  /* display: inline-block; */
-  /* width: 100px;
-  height: 100px;
-  margin: 5px; */
-  background-color: red;
-} 
-
-.error-highlight{
-  outline: none;
-  border-color: #bf3826;
-  box-shadow: 0 0 10px red;
-} 
