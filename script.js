@@ -34,7 +34,7 @@ function onReady(){
     $("#resultsTable").on('click','.deleteTarget',removeRow);
 
     //used to AUTO GENERATE USERS 
-    autoAdd(); //used for development
+    // autoAdd(); //used for development
     $('#inFirstName').focus();
 }//end onReady
 
