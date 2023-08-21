@@ -28,6 +28,7 @@ function onReady(){
     $("#submit-btn").on('click',submitUser);
     // allows you to hit enter after typing salary to submit.
     $("input").on('keyup', hitEnter);
+    $('#submitBudget').on('click',updateBudget);
 
     //Event Delegation Listener 
     $("#resultsTable").on('click','.deleteTarget',removeRow);
@@ -37,9 +38,21 @@ function onReady(){
     $('#inFirstName').focus();
 }//end onReady
 
+let budget = 20000;
+function updateBudget(){
+    budget =  Number($('#custom-budget').val());
+    checkRunningTotal();
+}
+
 function hitEnter(e){
     if (e.key === 'Enter' || e.keyCode === 13) {
-        $("#submit-btn").trigger("click");
+        if ($('.inputs').is(":focus")){
+            $("#submit-btn").trigger("click");
+        }
+        else if ($('.budgetSelect').is(":focus")){
+            updateBudget()
+            checkRunningTotal();
+        }
     }
 }//end hit enter
 
@@ -103,27 +116,31 @@ function emptyFields(firstNameInput,lastNameInput,idInput,titleInput,inSalary){
         // console.log("SOMETHING WAS EMPTY");
         if (inSalary === ""){
             $('#inSalary').addClass('error-highlight');// Highlight Red
-            $('#inSalary').focus(); // FOCUS
+            $('#inSalary').focus();
         } else {
             $('#inSalary').removeClass('error-highlight');
         }
-        if (idInput === ""){
-            $('#inUserID').addClass('error-highlight');
-        } else {
-            $('#inUserID').removeClass('error-highlight');
-        }
         if (titleInput === ""){
             $('#inTitle').addClass('error-highlight');
+            $('#inTitle').focus(); 
         } else {
             $('#inTitle').removeClass('error-highlight');
         }
+        if (idInput === ""){
+            $('#inUserID').addClass('error-highlight');
+            $('#inUserID').focus(); 
+        } else {
+            $('#inUserID').removeClass('error-highlight');
+        }
         if (lastNameInput === "" ) {
             $('#inLastName').addClass('error-highlight');
+            $('#inLastName').focus(); 
         } else {
             $('#inLastName').removeClass('error-highlight');
         }
         if (firstNameInput === "") {
             $('#inFirstName').addClass('error-highlight');
+            $('#inFirstName').focus(); 
         } else {
             $('#inFirstName').removeClass('error-highlight');
         }
@@ -180,16 +197,17 @@ function updateMonthly(employee,addOrRemove){
 
     //update DOM
     $('#totalAmount').text("Total Monthly Cost: "+output); 
+    checkRunningTotal();
     
-    //check if over 20k, apply/remove red-fill
-    if (runningTotal> 20000){
+}//end updateTotal
+function checkRunningTotal(){
+//check if over 20k, apply/remove red-fill
+    if (runningTotal > budget){
         $('#totalAmount').addClass('red-fill');
     } else{
         $('#totalAmount').removeClass('red-fill');
     };
-
-}//end updateTotal
-
+}
 
 //Format number into currency display
 function formatMoney(number){
@@ -246,30 +264,3 @@ function autoAdd(){
 
 //QUESTION: How do people format money?
 //                  does that make it easier to use text() as a getter?
-
-
-/* TODO / DONE
-
-DONE: Take in inputs
-DONE: store inputs
-DONE: calculate monthly costs
-DONE: update DOM with monthly costs
-DONE: if monthly costs are over 20k, add red background
-DONE: delete button remove employee from DOM
-
-TODO: README.md
-
-TODO STRETCH: styling
-
-TODO STRETCH: customize monthly goal expenditure from 20k to anything.
-TODO STRETCH: estimate PTO, health insurance, other added costs per employee for monthly budget
-
-DONE STRETCH: add example row that is removed when first user is submitted.
-DONE STRETCH: make 'Name' field, combine first and last
-DONE STRETCH: flexy boxes
-DONE STRETCH: update monthly cost after removal
-DONE STRETCH: only accept unique userIDs 
-DONE STRETCH: alert with errors if fields are empty.
-
-
-*/

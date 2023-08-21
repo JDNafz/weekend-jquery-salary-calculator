@@ -15,12 +15,12 @@
             <h2>Add Employee
             </h2>
             <div id="inputs">
-                <input id="inFirstName" type="text" placeholder="First Name">
-                <input id="inLastName" type="text" placeholder="Last Name">
-                <input id="inUserID" type="number" placeholder="ID">
-                <input id="inTitle" type="text" placeholder="Title">
-                <input id="inSalary" type="number" placeholder="Salary">
-                <input id="submit-btn" class="btn" type="submit" value="Submit">
+                <input id="inFirstName" class="inputs" type="text" placeholder="First Name">
+                <input id="inLastName" class="inputs" type="text" placeholder="Last Name">
+                <input id="inUserID" class="inputs" type="number" placeholder="ID">
+                <input id="inTitle" class="inputs" type="text" placeholder="Title">
+                <input id="inSalary" class="inputs" type="number" placeholder="Salary">
+                <input id="submit-btn" class="inputs" class="btn" type="submit" value="Submit">
             </div>
         </section>
         <section id ="tableSection">
@@ -39,13 +39,18 @@
                     <td>Job Title</td>
                     <td>Salary</td>
                     <td>
-                        <input type='submit' class="tempDelete" value='delete'>
+                        <input type='submit' class="deleteTarget tempDelete" value='delete'>
                     </td>
                 </tr>
+                
             </table>
-            <span id="adjuster">Adjust here</span> <!--TODO make custom 20k adjuster -->
-            <span id="totalAmount" class="total"></span>
-            
+            <div id="tableFooter">
+                <div id="adjuster">Monthly budget:<!--TODO make custom 20k adjuster --> 
+                </div>
+                <input type= "number" class="budgetSelect" id="custom-budget"placeholder="$20,000"></input>
+                <input class ="btn" type="submit" id="submitBudget" value="submit"></input>
+
+                <div id="totalAmount" class="total"></div>
         </section>  
     </div>
 </body>

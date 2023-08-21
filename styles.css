@@ -71,6 +71,7 @@ input {
   border-style:solid;
 }
 
+
 #submit-btn {
   margin: 0 5% 0 80%;
 }
@@ -109,15 +110,35 @@ th, td {
   /* border: solid black; */
   /* top, right, bottom, left */
   padding:  .5em;
+}
+
+#tableFooter{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#totalAmount {
+  order: 1;
+  display:flex;
+  margin: 0% 0% 0% 0% ;
+  vertical-align: bottom;
+  margin: 0 8% 0 0;
+  padding:0;
+}
+#adjuster {
+  order: 4;
+  align-self: bottom;
+  flex-grow:2;
+
+  padding:0 0 0 0 ;
   }
-  .total {
-    float: right;
-    margin: 0% 0% 0% 0% ;
-    vertical-align: bottom;
-    padding: 0 28% 0 0;
+#custom-budget {
+    margin:0 2% 0 0;
+    flex-grow: 1;
+    width: 13%;
+    order: 3;
   }
-
-
-
-  
-  
+#submitBudget {
+    order:2;
+    margin: 0 10% 0 0;
+  }

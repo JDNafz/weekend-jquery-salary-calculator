@@ -1,9 +1,19 @@
-# Project Name
+# Salary Calculator
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+This webapp was created for the purpose of calculating monthly expenditures on employee salaries. Upon filling the name, ID, title, and salary fields a user may add the employee to a table which will add the total of all employees salaries and provide a monthly total of the combined salaries. Users may be deleted to remove employee from the monthly budget.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+The user may customize the budget amount, the default is set at $20,000 per month.
+
+This project was completed using HTML, CSS, and jQuery by JD Nafziger on 8/20/2023.
+
+
+## Additional features
+
+- Add example row that is removed when first user is submitted.
+- Allow the enter key to trigger the submit buttons.
+- Make use of flex boxes for more dynamic sizing of elements and view ports 
+- Only accept unique userIDs 
+- Alert with errors if fields are empty.
